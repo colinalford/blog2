@@ -26,6 +26,7 @@ router.get('/blog/:blog_id', function(req, res) {
         });
 });
 
+// Needs authorization
 router.post('/', function(req, res) {
     var comment = new Comment();
     comment.blog_id = req.body.blog_id;
@@ -41,6 +42,7 @@ router.post('/', function(req, res) {
     });
 });
 
+// Needs authorization
 router.put('/:comment_id', function(req, res) {
     Comment.findById(req.params.comment_id, function(req, res) {
         if (err) {
@@ -59,6 +61,7 @@ router.put('/:comment_id', function(req, res) {
     });
 });
 
+// Needs authorization
 router.delete('/:comment_id', function(req, res) {
     Comment.remove({
         _id: req.params.comment_id

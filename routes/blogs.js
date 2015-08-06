@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Blog = require('../models/blog');
-var Comment = require('../models/comments');
+
 
 router.get('/', function (req, res) {
     var last_displayed_date = req.query.lastDate ? req.query.lastDate : Date.now();
@@ -16,7 +16,13 @@ router.get('/', function (req, res) {
         });
 });
 
-router.post('/', function(req, res) {
+router.get('/new', ensureAuthenticated, function(req, res) {
+    res.render('partials/new_blog');
+});
+
+// Needs authorization
+router.post('/new', ensureAuthenticated, function(req, res) {
+
     var blog = new Blog();
     blog.title = req.body.title;
     blog.body = req.body.body;
@@ -43,7 +49,8 @@ router.get('/:blog_id', function(req, res) {
     });
 });
 
-router.put('/:blog_id', function(req, res) {
+// Needs authorization
+router.put('/:blog_id', ensureAuthenticated, function(req, res) {
     Blog.findById(req.params.blog_id, function(err, blog) {
         if(err){
             res.send(err);
@@ -63,7 +70,8 @@ router.put('/:blog_id', function(req, res) {
     });
 });
 
-router.delete('/:blog_id', function(req, res) {
+// Needs authorization
+router.delete('/:blog_id', ensureAuthenticated, function(req, res) {
     Blog.remove({
         _id: req.params.blog_id
     }, function(err, blog) {
@@ -74,5 +82,10 @@ router.delete('/:blog_id', function(req, res) {
         }
     });
 })
+
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) { return next(); }
+    res.redirect('../users/login');
+}
 
 module.exports = router;

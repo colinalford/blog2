@@ -40,6 +40,7 @@ router.post('/login', function(req, res, next) {
     })(req, res, next);
 });
 
+// Needs authorization
 router.get('/:user_id', function(req, res) {
     User.findById(req.params.user_id, function(err, user) {
         if (err) {
@@ -50,6 +51,7 @@ router.get('/:user_id', function(req, res) {
     })
 });
 
+// Needs authorization
 router.post('/:user_id', function(req, res) {
     User.findById(req.params.user_id, function(err, user) {
         if (err) {
@@ -60,6 +62,7 @@ router.post('/:user_id', function(req, res) {
     });
 });
 
+// Needs authorization
 router.delete('/:user_id', function(req, res) {
     User.remove({
         _id: req.params.user_id

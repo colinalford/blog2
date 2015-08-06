@@ -9,14 +9,15 @@ var passport = require('passport');
 var mongoose = require('mongoose');
 var session = require('express-session');
 
+var passportConfig = require('./config/passport');
+
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var blogs = require('./routes/blogs');
 var comments = require('./routes/comments');
 
 var app = express();
-
-var passportConfig = require('./config/passport');
 
 // Connect to mongoose
 mongoose.connect('mongodb://localhost/myblog5');
@@ -39,6 +40,7 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 passportConfig();
+
 
 app.use('/', routes);
 app.use('/api/users', users);
