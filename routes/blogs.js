@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Blog = require('../models/blog');
-
+var ensureAuthenticated = require('./middlewares/ensureAuthenticated');
 
 router.get('/', function (req, res) {
     var last_displayed_date = req.query.lastDate ? req.query.lastDate : Date.now();
@@ -31,7 +31,7 @@ router.post('/new', ensureAuthenticated, function(req, res) {
         if (err){
             res.send(err);
         } else {
-            res.json({ message: 'Blog Created' });
+            res.redirect('/api/blog/'+blog.id);
         }
     });
 });
@@ -82,10 +82,5 @@ router.delete('/:blog_id', ensureAuthenticated, function(req, res) {
         }
     });
 })
-
-function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) { return next(); }
-    res.redirect('../users/login');
-}
 
 module.exports = router;
