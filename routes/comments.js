@@ -1,8 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var Comment = require('../models/comments');
+var isUser = require('./middlewares/isUser');
 
-router.get('/user/:user_id', function(req, res){
+// Requires authorization
+router.get('/user/:user_id', isUser, function(req, res){
     Comment.find({user_id: req.params.user_id})
         .sort({date: -1})
         .exec(function(err, comments) {
@@ -27,7 +29,7 @@ router.get('/blog/:blog_id', function(req, res) {
 });
 
 // Needs authorization
-router.post('/', function(req, res) {
+router.post('/', isUser, function(req, res) {
     var comment = new Comment();
     comment.blog_id = req.body.blog_id;
     comment.user_id = req.body.user_id;
@@ -43,7 +45,7 @@ router.post('/', function(req, res) {
 });
 
 // Needs authorization
-router.put('/:comment_id', function(req, res) {
+router.put('/:comment_id', isUser, function(req, res) {
     Comment.findById(req.params.comment_id, function(req, res) {
         if (err) {
             res.send(err);
@@ -62,7 +64,7 @@ router.put('/:comment_id', function(req, res) {
 });
 
 // Needs authorization
-router.delete('/:comment_id', function(req, res) {
+router.delete('/:comment_id', isUser, function(req, res) {
     Comment.remove({
         _id: req.params.comment_id
     }, function(err, comment) {
