@@ -6,7 +6,7 @@ var User = require('../models/user');
 /* GET users listing. */
 
 router.get('/signup', function(req, res) {
-    res.render('signup');
+    res.render('partials/signup_form');
 });
 
 router.post('/signup', function(req, res) {
@@ -23,7 +23,7 @@ router.post('/signup', function(req, res) {
 });
 
 router.get('/login', function(req, res) {
-    res.render('login');
+    res.render('partials/login_form');
 });
 
 router.post('/login', function(req, res, next) {
@@ -35,7 +35,8 @@ router.post('/login', function(req, res, next) {
         }
         req.logIn(user, function(err) {
             if (err) { return next(err); }
-            return res.redirect('/success');
+            console.log(req.session.passport.user);
+            return res.redirect('/');
         });
     })(req, res, next);
 });
