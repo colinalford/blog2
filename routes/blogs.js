@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Blog = require('../models/blog');
 var ensureAuthenticated = require('./middlewares/ensureAuthenticated');
+var isAdmin = require('./middlewares/isAdmin');
 
 router.get('/', function (req, res) {
     var last_displayed_date = req.query.lastDate ? req.query.lastDate : Date.now();
@@ -16,12 +17,12 @@ router.get('/', function (req, res) {
         });
 });
 
-router.get('/new', ensureAuthenticated, function(req, res) {
+router.get('/new', isAdmin, function(req, res) {
     res.render('partials/new_blog');
 });
 
 // Needs authorization
-router.post('/new', ensureAuthenticated, function(req, res) {
+router.post('/new', isAdmin, function(req, res) {
 
     var blog = new Blog();
     blog.title = req.body.title;
@@ -50,7 +51,7 @@ router.get('/:blog_id', function(req, res) {
 });
 
 // Needs authorization
-router.put('/:blog_id', ensureAuthenticated, function(req, res) {
+router.put('/:blog_id', isAdmin, function(req, res) {
     Blog.findById(req.params.blog_id, function(err, blog) {
         if(err){
             res.send(err);
@@ -71,7 +72,7 @@ router.put('/:blog_id', ensureAuthenticated, function(req, res) {
 });
 
 // Needs authorization
-router.delete('/:blog_id', ensureAuthenticated, function(req, res) {
+router.delete('/:blog_id', isAdmin, function(req, res) {
     Blog.remove({
         _id: req.params.blog_id
     }, function(err, blog) {

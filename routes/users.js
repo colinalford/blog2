@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var User = require('../models/user');
+var isUser = require('./middlewares/isUser');
+
 
 /* GET users listing. */
 
@@ -41,7 +43,7 @@ router.post('/login', function(req, res, next) {
 });
 
 // Needs authorization
-router.get('/:user_id', function(req, res) {
+router.get('/:user_id', isUser, function(req, res) {
     User.findById(req.params.user_id, function(err, user) {
         if (err) {
             res.send(err);
