@@ -1,0 +1,6 @@
+<div id="comments">
+    <div class="date"><%- comments.created_at %></div>
+    <div class="user"><%- comments.user_id %></div>
+    <div class="body"><%- comments.body %></div>
+    <a href="/api/blog/<%- result.blog.blog_id %>">From: <%- comments.blog.blog_title %></a>
+</div>

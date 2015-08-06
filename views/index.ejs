@@ -1,26 +1,72 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title><%= title %></title>
-        <meta name=viewport content="width=device-width, initial-scale=1">
-        <link rel='stylesheet' href='/stylesheets/style.css' />
-        <script src="/javascripts/jquery-2.1.4.min.js"></script>
+        <% include ./partials/head %>
     </head>
     <body>
         <header>
-            <div class="header-img"></div>
-            <div class="title-div"><h1>Colin's Blog</h1></div>
+            <% include ./partials/header %>
         </header>
         <main>
             <div id="lastPostsLoader"></div>
             <a href='http://www.freepik.com/free-vector/vector-robot-silhouettes-free-for-download_714901.htm'>Robot Graphics by Freepik</a>
             <aside class="hidden-block">
-                <h3>About Me</h3>
-                <div class="about">I have been a teacher of guitar, German, math, science, and literature. Now I am on the path to become a web developer. Contact me at colinalford@gmail.com</div>
-                <img src="/images/me_chair.jpg" alt="Little Colin, Big Chair" />
+                <% include ./partials/aside %>
             </aside>
         </main>
 
-    <script src="/javascripts/ajax.js"></script>
+    <script type="text/javascript" src="/javascripts/ajax.js"></script>
+    <script>
+        // Initializes page with most recent blog entries on page load
+        Blogs.getBlogs().done(function(results) {
+            Blogs.renderBlogs(results);
+        });
+
+        // Infinity Scroll -- Event handler to watch for user scroll,
+        // then load next 10 blog entries from the API call
+        $(window).scroll(function() {
+
+            // Gets dimensions of window and document and sets point to trigger scroll
+            var wintop = $(window).scrollTop(), docheight = $(document).height(), winheight = $(window).height();
+            var  scrolltrigger = 0.95;
+
+            // If user scrolls to 95% of page, they have reached the end of the page,
+            // and there are no AJAX requests that haven't completed and rendered,
+            // it will execute the code
+            if ((wintop/(docheight-winheight)) > scrolltrigger && Blogs.endOfPage === false && Blogs.requesting === false) {
+
+                // Gets date of the last item rendered to page
+                var lastItem = $('#lastPostsLoader .blog-post:last-child').attr('id');
+
+                // When true, does not allow any other AJAX requests to be fired off
+                // until complete
+                Blogs.requesting = true;
+
+                // When promise is returned from AJAX call, first checks to see that
+                // result empty array. If so, it sets endOfPage to true and disables
+                // further AJAX requests. Then it checks if it is not currently at
+                // endOfPage and, if not, it renders HTML from JSON result.
+                Blogs.getBlogs(lastItem).done(function(result){
+                    if (result.length === 0) {
+                        $('#lastPostsLoader').append('<hr/><div class="blog-post end-content">End Of Content: Scroll To Top Or Refresh To Check For New Content</div>');
+                        Blogs.endOfPage = true;
+                    }
+                    if (Blogs.endOfPage !== true && result[0] !== undefined) {
+                        Blogs.renderBlogs(result)
+                        Blogs.requesting = false;
+                    } else if (Blogs.endOfPage !== true && result[0] === undefined) {
+                        console.log(result.message);
+                        $('#lastPostsLoader').append('<div class="blog-post error-message">Something has gone wrong. Try refreshing the page and please send email to colinalford@gmail.com.</div>');
+                        Blogs.requesting = false;
+                        Blogs.endOfPage = true;
+                    }
+                })
+                .error(function(result){
+                    console.log("you are a failure");
+                    console.log(result);
+                });
+            }
+        });
+    </script>
     </body>
 </html>

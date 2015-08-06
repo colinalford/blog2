@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <% include ./partials/head %>
+    </head>
+    <body>
+        <header>
+            <% include ./partials/header %>
+        </header>
+        <main>
+            <%- include ./partials/blog_post %>
+            <div id="comments"></div>
+            <a href='http://www.freepik.com/free-vector/vector-robot-silhouettes-free-for-download_714901.htm'>Robot Graphics by Freepik</a>
+            <aside class="hidden-block">
+                <% include ./partials/aside %>
+            </aside>
+        </main>
+        <script type="text/javascript" src="/javascripts/ajax.js"></script>
+        <script>
+            var path = <%- JSON.stringify(blog._id) %>
+            Comments.renderComments(Comments.getComments(path));
+        </script>
+    </body>
+</html>

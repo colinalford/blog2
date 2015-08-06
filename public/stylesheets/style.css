@@ -122,6 +122,13 @@ main {
     margin: 1%;
     margin-left: 3%;
     margin-right: 3%;
+    position: relative;
+
+}
+
+#lastPostsLoader .blog-post:hover {
+    border-color: gray;
+    box-shadow: 0 0 20px gray;
 }
 
 .blog-post .title {
@@ -153,6 +160,16 @@ main {
     font-size: 1.15em;
 }
 
+.link-spanner{
+  position:absolute;
+  width:100%;
+  height:100%;
+  top:0;
+  left: 0;
+  z-index: 1;
+}
+
+
 .error-message {
     width: 95%;
     margin-left: auto;
@@ -162,7 +179,7 @@ main {
 
 aside {
     position: absolute;
-    margin-left: 5%;
+    margin-left: 7%;
     margin-right:5%;
     left: 1100px;
     top: 50px;

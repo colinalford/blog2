@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Blog = require('../models/blog');
+var Comment = require('../models/comments');
 
 router.get('/', function (req, res) {
     var last_displayed_date = req.query.lastDate ? req.query.lastDate : Date.now();
@@ -11,7 +12,6 @@ router.get('/', function (req, res) {
                 res.send(err);
             } else {
                 res.json(blogs);
-                console.log(req.query.lastDate);
             }
         });
 });
@@ -35,9 +35,12 @@ router.get('/:blog_id', function(req, res) {
         if(err){
             res.send(err);
         } else {
-            res.json(blog);
+            res.render('blog_view', {
+                title: "Colin's Blog | " + blog.title,
+                blog: blog,
+            });
         }
-    })
+    });
 });
 
 router.put('/:blog_id', function(req, res) {
