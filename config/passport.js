@@ -10,7 +10,7 @@ module.exports = function() {
             email: user.email,
             admin: user.isAdmin
         }
-        done(null, user.id);
+        done(null, userSessionInfo);
     });
 
     passport.deserializeUser(function(id, done) {
