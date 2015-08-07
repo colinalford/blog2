@@ -33,8 +33,11 @@ router.get('/blog/:blog_id', function(req, res) {
 router.post('/', ensureAuthenticated, function(req, res) {
     var comment = new Comment();
     comment.blog_id = req.body.blog_id;
-    comment.user_id = req.session.passport.user_id;
+    comment.user.user_id = req.user.id;
+    comment.user.username = req.user.username;
     comment.body = req.body.body;
+
+    console.log(req.body.blog_id);
 
     comment.save(function(err) {
         if (err) {

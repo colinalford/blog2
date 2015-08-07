@@ -14,7 +14,7 @@
         getBlogs: function(date) {
             var promise = $.ajax({
                 type: 'GET',
-                url: 'http://localhost:3000/api/blog',
+                url: '/api/blog',
                 data: { lastDate: date },
                 dataType: 'json',
             });
@@ -43,19 +43,19 @@
         getComments: function(blog_id) {
             var promise = $.ajax({
                 type: 'GET',
-                url: 'http://localhost:3000/api/comments/blog/'+blog_id,
+                url: '/api/comments/blog/'+blog_id,
             });
-            console.log(blog_id);
+            console.log('/api/comments/blog/'+blog_id);
             console.log(promise);
             return promise;
         },
         renderComments: function(data) {
             $.each(data, function(index, element) {
-                console.log(data);
+                console.log(index);
                 var $comments = $('#comments');
                 $comments.append('<div class="comment-date">'+element.date+'</div>');
                 $comments.append('<div class="comment-body">'+element.body+'</div>');
-                $comments.append('<div class="comment-user">'+element.username+'</div>');
+                $comments.append('<div class="comment-user">'+element.user.username+'</div>');
             });
         }
     }
