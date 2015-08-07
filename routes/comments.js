@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Comment = require('../models/comments');
 var isUser = require('./middlewares/isUser');
+var ensureAuthenticated = require('./middlewares/ensureAuthenticated');
 
 // Requires authorization
 router.get('/user/:user_id', isUser, function(req, res){
@@ -29,10 +30,10 @@ router.get('/blog/:blog_id', function(req, res) {
 });
 
 // Needs authorization
-router.post('/', isUser, function(req, res) {
+router.post('/', ensureAuthenticated, function(req, res) {
     var comment = new Comment();
     comment.blog_id = req.body.blog_id;
-    comment.user_id = req.body.user_id;
+    comment.user_id = req.session.passport.user_id;
     comment.body = req.body.body;
 
     comment.save(function(err) {

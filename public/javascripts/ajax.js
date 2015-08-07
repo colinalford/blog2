@@ -45,15 +45,17 @@
                 type: 'GET',
                 url: 'http://localhost:3000/api/comments/blog/'+blog_id,
             });
-
+            console.log(blog_id);
+            console.log(promise);
             return promise;
         },
         renderComments: function(data) {
             $.each(data, function(index, element) {
+                console.log(data);
                 var $comments = $('#comments');
                 $comments.append('<div class="comment-date">'+element.date+'</div>');
                 $comments.append('<div class="comment-body">'+element.body+'</div>');
-                $comments.append('<div class="comment-user">'+element.user.username+'</div>');
+                $comments.append('<div class="comment-user">'+element.username+'</div>');
             });
         }
     }
