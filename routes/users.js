@@ -8,7 +8,7 @@ var isUser = require('./middlewares/isUser');
 /* GET users listing. */
 
 router.get('/signup', function(req, res) {
-    res.render('partials/signup_form');
+    res.render('signup', {title: "Colin's Blog"});
 });
 
 router.post('/signup', function(req, res) {
@@ -25,7 +25,7 @@ router.post('/signup', function(req, res) {
 });
 
 router.get('/login', function(req, res) {
-    res.render('partials/login_form');
+    res.render('login', {title: "Colin's Blog"});
 });
 
 router.post('/login', function(req, res, next) {
@@ -40,6 +40,12 @@ router.post('/login', function(req, res, next) {
             return res.redirect('/');
         });
     })(req, res, next);
+});
+
+router.get('/logout', function(req, res) {
+    req.session.destroy(function(err) {
+        res.redirect('/');
+    })
 });
 
 // Needs authorization
