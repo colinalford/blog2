@@ -8,6 +8,7 @@ var flash = require('connect-flash');
 var passport = require('passport');
 var mongoose = require('mongoose');
 var session = require('express-session');
+var attachAuthenticationStatus = require('./routes/middlewares/attachAuthenticationStatus');
 
 var passportConfig = require('./config/passport');
 
@@ -36,7 +37,7 @@ app.use(session({ secret: '80ColiNs*zUper@awEsome+node/$^bLog4', saveUninitializ
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(attachAuthenticationStatus);
 app.use(express.static(path.join(__dirname, 'public')));
 
 passportConfig();
