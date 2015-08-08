@@ -6,6 +6,8 @@
 
 body {
     font-size: 1em;
+    background-color: #EFEEED;
+    color: #292828;
 }
 
 h1 {
@@ -97,19 +99,35 @@ header {
     background-position: 50% -255px;
 	background-size: 393px 399px;
     background-repeat: repeat-x;
-	width: 306px;
-	height: 116px;
 	width: 100%;
 	height: 116px;
 }
 
 .title-div {
-    background-color: black;
+    background-color: #292828;
+    text-align: center;
+    clear: both;
+    position: relative;
 }
 
-.title-div h1 {
-    color: white;
+.link-container {
+    position: relative;
+    display: inline-block;
+}
+
+.link-container h1 {
+    color: #EFEEED;
+}
+
+.login-container {
+    position: absolute;
+    top: 5px;
+    right: 0;
+    margin-right: 5%;
+    color: #EFEEED;
     text-align: center;
+    font-size: 1.414em;
+    height: 100%;
 }
 
 main {
@@ -117,13 +135,17 @@ main {
     top: 149px;
 }
 
-.blog-post {
+.blog-post, #comments {
     width: 95%;
-    margin: 1%;
+    margin: 2%;
     margin-left: 3%;
     margin-right: 3%;
     position: relative;
 
+}
+
+.blog-post {
+    margin-top: 3%;
 }
 
 #lastPostsLoader .blog-post:hover {
@@ -147,17 +169,41 @@ main {
     background-image: -o-linear-gradient(left, #E6E6E6, black, #E6E6E6);
 }
 
-.blog-post .date {
+.blog-post .date, .comment-date {
     font-style: italic;
     font-size: .85em;
+}
+
+.blog-post {
     text-align: left;
     margin-bottom: .5em;
 }
 
-
-.blog-post .body {
+.blog-post .body, .comment-body {
     font-family: Helvetica, sans-serif;
     font-size: 1.15em;
+}
+
+#comments {
+    margin-top: 5%;
+}
+
+.comment-container {
+    margin-top: 1%;
+    margin-bottom: 4%;
+}
+
+.comment-body {
+    margin-left: 4%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    border-left: 2px solid black;
+    padding-left: 1%;
+}
+
+.comment-user {
+    font-weight: bold;
+    text-align: left;
 }
 
 .link-spanner{
@@ -202,8 +248,14 @@ aside img {
     display: none;
 }
 
+@media (max-width: 500px) {
+    .login-container {
+        display: none;
+    }
+}
+
 @media (min-width: 1119px) {
-    .blog-post {
+    .blog-post, #comments {
         width: 1062px;
         margin-left: auto;
         margin-right: auto;
@@ -211,7 +263,7 @@ aside img {
 }
 
 @media (min-width: 1480px) {
-    .blog-post {
+    .blog-post, #comments {
         width: 1062px;
         margin-left: 5%;
         margin-right: auto;

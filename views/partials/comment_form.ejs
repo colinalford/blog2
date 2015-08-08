@@ -1,8 +1,7 @@
 <form id="comment-form" class="comment" action="/api/comments" method="POST">
-    <div id="comment-container">
-        <label for="body">Comment:</label>
-        <input type="text" name="body">
-    </div>
     <input id="blog_id_input" type="hidden" name="blog_id" value="">
     <button type="submit" value="Submit">Add Comment</button>
 </form>
+<div id="new-comment-container">
+    <textarea rows="4" cols="50" name="body" form="comment-form">Your comment...</textarea>
+</div>

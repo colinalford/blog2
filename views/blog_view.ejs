@@ -9,7 +9,10 @@
         </header>
         <main>
             <%- include ./partials/blog_post %>
-            <div id="comments"><%- include ./partials/comment_form %></div>
+            <div id="comments">
+                <h3>Join the Discussion:</h3>
+                <%- include ./partials/comment_form %>
+            </div>
             <a href='http://www.freepik.com/free-vector/vector-robot-silhouettes-free-for-download_714901.htm'>Robot Graphics by Freepik</a>
             <aside class="hidden-block">
                 <% include ./partials/aside %>
@@ -19,7 +22,6 @@
         <script>
             var pathArray = window.location.pathname.split('/');
             var path = pathArray[3];
-            console.log(path);
             Comments.getComments(path).done(function(result) {
                 Comments.renderComments(result);
             })
