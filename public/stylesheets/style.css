@@ -136,7 +136,7 @@ main {
     top: 149px;
 }
 
-.blog-post, #comments {
+.blog-post, #comments, .form_area {
     width: 95%;
     margin: 2%;
     margin-left: 3%;
@@ -215,7 +215,6 @@ main {
   left: 0;
   z-index: 1;
 }
-
 
 .error-message {
     width: 95%;

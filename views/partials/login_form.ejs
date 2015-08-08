@@ -1,15 +1,18 @@
-<form class="login" action="/api/users/login" method="POST">
-    <div id="email-container">
-        <label for="password">Email:</label>
-        <input type="text" name="email">
-    </div>
-    <div id="password-container">
-        <label for="password">Password:</label>
-        <input type="text" name="password">
-    </div>
-    <button type="submit" value="Submit">Login</button>
-</form>
 
-<div id="signup-notice">
-    Don't have an account? <a href="/users/api/signup">Sign up</a>
+<div class="form_area">
+    <form class="login_form" action="/api/users/login" method="POST">
+        <div id="email-container">
+            <label for="password">Email:</label>
+            <input type="text" name="email">
+        </div>
+        <div id="password-container">
+            <label for="password">Password:</label>
+            <input type="text" name="password">
+        </div>
+        <button type="submit" value="Submit">Login</button>
+    </form>
+
+    <div id="signup-notice">
+        Don't have an account? <a href="/api/users/signup">Sign up</a>
+    </div>
 </div>
