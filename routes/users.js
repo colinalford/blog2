@@ -16,7 +16,6 @@ router.post('/signup', function(req, res) {
     user.email = req.body.email;
     user.username = req.body.username;
     user.password = user.generateHash(req.body.password);
-    user.isAdmin = req.body.isAdmin ? true : false;
 
     user.save(function(err) {
         if (err) {res.send(err);}
