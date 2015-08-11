@@ -19,7 +19,7 @@ router.post('/signup', function(req, res) {
 
     user.save(function(err) {
         if (err) {res.send(err);}
-        res.json({ message: 'User created' });
+        res.redirect('/');
     })
 });
 
@@ -32,7 +32,7 @@ router.post('/login', function(req, res, next) {
         if (err) { return next(err) }
         if (!user) {
             req.flash('error', info.message);
-            return res.redirect('/failed');
+            return res.redirect('./login');
         }
         req.logIn(user, function(err) {
             if (err) { return next(err); }

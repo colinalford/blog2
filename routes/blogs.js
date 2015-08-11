@@ -18,7 +18,7 @@ router.get('/', function (req, res) {
 });
 
 router.get('/new', isAdmin, function(req, res) {
-    res.render('partials/new_blog');
+    res.render('new_blog', {title: "Colin's Blog | New Blog"});
 });
 
 // Needs authorization

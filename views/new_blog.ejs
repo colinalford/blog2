@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <% include ./partials/head %>
+    </head>
+    <body>
+        <header>
+            <% include ./partials/header %>
+        </header>
+        <main>
+            <% include ./partials/new_blog %>
+        </main>
+        <script type="text/javascript" src="/javascripts/ajax.js"></script>
+        <script>
+            var editor = document.getElementsByClassName('ckeditor')[0];
+            CKEDITOR.replace(editor);
+        </script>
+    </body>
+</html>
