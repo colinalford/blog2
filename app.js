@@ -21,7 +21,12 @@ var comments = require('./routes/comments');
 var app = express();
 
 // Connect to mongoose
-mongoose.connect('mongodb://localhost/myblog5');
+var db_name = 'blog';
+var mongodb_connection_string = 'mongodb://127.0.0.1:27017/' + db_name;
+if(process.env.OPENSHIFT_MONGODB_URL){
+  mongodb_connection_string = process.env.OPENSHIFT_MONGODB_URL + db_name;
+}
+mongoose.connect('mongodb_connection_string');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
