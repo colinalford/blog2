@@ -77,7 +77,7 @@ router.delete('/:blog_id', isAdmin, function(req, res) {
         _id: req.params.blog_id
     }, function(err, blog) {
         if (err) {
-            res.send(errr);
+            res.send(err);
         } else {
             res.json({ message: 'Successfully deleted' });
         }

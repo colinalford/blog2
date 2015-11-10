@@ -1,7 +1,11 @@
 <form id="comment-form" class="comment" action="/api/comments" method="POST">
     <input id="blog_id_input" type="hidden" name="blog_id" value="">
     <button type="submit" value="Submit">Add Comment</button>
+    <% if(!isAuthenticated) {%>
+        <a href="/api/users/login">Sign in to comment</a>
+        <% } %>
 </form>
 <div id="new-comment-container">
-    <textarea rows="4" cols="50" class="ckeditor" name="body" form="comment-form">Your comment...</textarea>
+    <textarea rows="4" cols="50" id="comment-editor" class="ckeditor" name="body" form="comment-form" disabled>Must be signed in to comment</textarea>
 </div>
+
